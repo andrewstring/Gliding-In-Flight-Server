@@ -22,7 +22,7 @@ app.get("/datarec", (req, res) => {
 app.post("/datasend/gps", (req, res) => {
     const output = `Date: ${req.body.dateTime}
     Latitude: ${req.body.latitude}
-    Longitude: ${req.bodylongitude}
+    Longitude: ${req.body.longitude}
     Altitude ${req.body.altitude}
     Speed: ${req.body.speed}\n`
     console.log(output)
