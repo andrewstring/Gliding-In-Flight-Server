@@ -21,7 +21,13 @@ app.get("/datarec", (req, res) => {
 
 app.post("/datasend/gps", (req, res) => {
     console.log(req.body)
-    res.send(JSON.stringify(req.body))
+    const data = JSON.stringify(req.body)
+    res.send(`Date: ${data.dateTime}
+    Latitude: ${data.latitude}
+    Longitude: ${data.longitude}
+    Altitude ${data.altitude}
+    Speed: ${data.speed}
+    `)
 })
 
 
