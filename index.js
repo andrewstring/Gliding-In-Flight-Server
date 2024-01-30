@@ -21,7 +21,7 @@ app.get("/datarec", (req, res) => {
 })
 
 
-
+// Tester Function
 app.post("/glider-tracking/gps", (req, res) => {
     const output = `Date: ${req.body.dateTime}
     Latitude: ${req.body.latitude}
