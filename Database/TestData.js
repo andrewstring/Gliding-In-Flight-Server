@@ -3,6 +3,7 @@ const { Glider, Flight } = require("./Schema.js")
 const testGlider = [
     new Glider({
         id: "jkl0",
+        name: "John",
         location: {
             latitude: 1223.11,
             longitude: 122.1
@@ -16,6 +17,7 @@ const testGlider = [
     }),
     new Glider({
         id: "jkl1",
+        name: "Marco",
         location: {
             latitude: 1223.11,
             longitude: 122.1
