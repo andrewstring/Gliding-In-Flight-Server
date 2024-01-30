@@ -34,28 +34,35 @@ app.post("/glider-tracking/gps", (req, res) => {
 
 
 app.get("/glider-tracking/glider", (req, res) => {
-    Mongo.getGlider(req.query.id)
-
+    try {
+        res.send(Mongo.getGlider(req.query.id))
+    } catch(e) {
+        res.send(e)
+    }
 })
 app.post("/glider-tracking/glider", (req, res) => {
-    Mongo.addGlider(req.body)
+    try {
+        res.send(Mongo.addGlider(req.body))
+    } catch(e) {
+        res.send(e)
+    }
 })
 
 
 app.get("/glider-tracking/flight", (req, res) => {
-    Mongo.getFlight(req.query.id)
-
+    try {
+        res.send(Mongo.getFlight(req.query.id))
+    } catch(e) {
+        res.send(e)
+    }
 })
 app.post("/glider-tracking/flight", (req, res) => {
-    Mongo.addFlight(req.body)
+    try {
+        res.send(Mongo.addFlight(req.body))
+    } catch(e) {
+        res.send(e)
+    }
 })
-
-
-
-
-
-
-
 
 
 
