@@ -1,9 +1,12 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 
+const Mongo = require("./Database/Mongo.js")
+
 const app = express()
 const port = 3000
 
+// Middleware
 app.use(bodyParser.json())
 
 // Initial request methods
@@ -28,6 +31,29 @@ app.post("/datasend/gps", (req, res) => {
     console.log(output)
     res.send(output)
 })
+
+
+app.get("/datasend/glider", (req, res) => {
+
+})
+app.post("/datasend/glider", (req, res) => {
+    Mongo.addGlider(req.body)
+})
+
+app.get("/datasend/flight", (req, res) => {
+
+})
+app.post("/datasend/flight", (req, res) => {
+    Mongo.addFlight(req.body)
+})
+
+
+
+
+
+
+
+
 
 
 

@@ -30,6 +30,23 @@ const run = async () => {
     }
 }
 
+const getGlider = async (gliderId) => {
+    try {
+        await client.connect()
+        const database = await client.db(databaseName)
+        const collection = database.collection("glider")
+        const result = await collection.findOne({ id: gliderId })
+        if (!result) {
+            throw Error("Glider not found")
+        }
+        return result
+    } catch(e) {
+        console.error(e)
+    } finally {
+        await client.close()
+    }
+}
+
 const addGlider = async (glider) => {
     try {
         await client.connect()
@@ -66,6 +83,23 @@ const updateGlider = async (glider) => {
 
 const deleteGlider = async () => {
 
+}
+
+const getFlight = async(flightId) => {
+    try {
+        await client.connect()
+        const database = await client.db(databaseName)
+        const collection = database.collection("flight")
+        const result = await collection.findOne({ id: flightId })
+        if (!result) {
+            throw Error("Flight not found")
+        }
+        return result
+    } catch(e) {
+        console.error(e)
+    } finally {
+        await client.close()
+    }
 }
 
 const addFlight = async (flight) => {
@@ -107,11 +141,10 @@ const deleteFlight = async () => {
 
 }
 
-
-
 const initBoth = async () => {
     await addGlider(testGlider[0])
     await addFlight(testFlight[0])
 }
 
-initBoth()
+
+module.exports = { addGlider, addFlight }
