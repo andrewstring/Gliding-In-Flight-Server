@@ -147,4 +147,4 @@ const initBoth = async () => {
 }
 
 
-module.exports = { addGlider, addFlight }
+module.exports = { addGlider, getGlider, addFlight, getFlight }

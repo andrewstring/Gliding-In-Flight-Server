@@ -13,8 +13,8 @@ app.use(bodyParser.json())
 app.get("/", (req, res) => {
     res.send("Hello World!")
 })
-app.get("/datasend", (req, res) => {
-    res.send("DataSend Response")
+app.get("/glider-tracking", (req, res) => {
+    res.send("glider-tracking Response")
 })
 app.get("/datarec", (req, res) => {
     res.send("DataReceive Response")
@@ -22,7 +22,7 @@ app.get("/datarec", (req, res) => {
 
 
 
-app.post("/datasend/gps", (req, res) => {
+app.post("/glider-tracking/gps", (req, res) => {
     const output = `Date: ${req.body.dateTime}
     Latitude: ${req.body.latitude}
     Longitude: ${req.body.longitude}
@@ -33,17 +33,20 @@ app.post("/datasend/gps", (req, res) => {
 })
 
 
-app.get("/datasend/glider", (req, res) => {
+app.get("/glider-tracking/glider", (req, res) => {
+    Mongo.getGlider(req.query.id)
 
 })
-app.post("/datasend/glider", (req, res) => {
+app.post("/glider-tracking/glider", (req, res) => {
     Mongo.addGlider(req.body)
 })
 
-app.get("/datasend/flight", (req, res) => {
+
+app.get("/glider-tracking/flight", (req, res) => {
+    Mongo.getFlight(req.query.id)
 
 })
-app.post("/datasend/flight", (req, res) => {
+app.post("/glider-tracking/flight", (req, res) => {
     Mongo.addFlight(req.body)
 })
 
