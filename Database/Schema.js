@@ -2,33 +2,102 @@ const mongoose = require("mongoose")
 
 // Schemas
 const gliderSchema = new mongoose.Schema({
-    id: String,
-    location: {
-        latitude: Number,
-        longitude: Number
+    id: {
+        type: String,
+        required: true
     },
-    lastUpdate: Date,
-    previousAltitude: Number,
-    altitude: Number,
+    location: {
+        latitude: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        longitude: {
+            type: Number,
+            default: null,
+            required: false
+        }
+    },
+    lastUpdate: {
+        type: Date,
+        default: (new Date()).getDate(),
+        required: true
+    },
+    previousAltitude: {
+        type: Number,
+        default: null,
+        required: false
+    },
+    altitude: {
+        type: Number,
+        default: null,
+        required: false
+    },
 
     //Barometric altitudes
-    absoluteAltitude: Number,
-    relativeAltitude: Number,
+    absoluteAltitude: {
+        type: Number,
+        default: null,
+        required: false
+    },
+    relativeAltitude: {
+        type: Number,
+        default: null,
+        required: false
+    },
 
-    speed: Number
+    speed: {
+        type: Number,
+        default: null,
+        required: false
+    }
 })
 
 const flightSchema = new mongoose.Schema({
-    id: String,
-    glider: gliderSchema,
-    dateOfFlight: Date,
+    id: {
+        type: String,
+        required: true
+    },
+    glider: {
+        type: gliderSchema,
+        required: true
+    },
+    dateOfFlight: {
+        type: Date,
+        default: (new Date()).getDate(),
+        required: false
+    },
     flightData: [{
-        latitude: Number,
-        longitude: Number,
-        altitude: Number,
-        absoluteAltitude: Number,
-        relativeAltitude: Number,
-        speed: Number
+        latitude: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        longitude: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        altitude: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        absoluteAltitude: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        relativeAltitude: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        speed: {
+            type: Number,
+            default: null,
+            required: false
+        }
     }]
 })
 
