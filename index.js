@@ -33,9 +33,9 @@ app.post("/glider-tracking/gps", (req, res) => {
 })
 
 
-app.get("/glider-tracking/glider", (req, res) => {
+app.get("/glider-tracking/glider", async (req, res) => {
     try {
-        res.send(Mongo.getGlider(req.query.id))
+        res.send(await Mongo.getGlider(req.query.id))
     } catch(e) {
         res.send(e)
     }
