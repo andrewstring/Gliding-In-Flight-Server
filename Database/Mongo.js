@@ -1,5 +1,7 @@
 const { MongoClient, ServerApiVersion } = require("mongodb")
-const { Glider } = require("./Schema.js")
+const { Glider, Flight } = require("./Schema.js")
+const { testFlight, testGlider } = require("./TestData.js")
+
 
 
 
@@ -28,26 +30,17 @@ const run = async () => {
     }
 }
 
-const initGlider = async () => {
+const addGlider = async (glider) => {
     try {
         await client.connect()
         const database = await client.db(databaseName)
         const collection = database.collection("glider")
-
-        // Placeholder document for glider user
-        const testGlider = {
-            id: "JKL",
-            location: {
-                latitude: 52.001,
-                longitude: 11.10101010101010
-            },
-            altitude: 10,
-            speed: -52.0001
+        const exists = await collection.findOne({ id: glider.id})
+        if (!exists) {
+            const result = await collection.insertOne(testGlider[0])
+        } else {
+            throw Error("Glider already exists, cannot add")
         }
-        const result = await collection.insertOne(testGlider)
-
-
-
     } catch(e) {
         console.error(e)
     } finally {
@@ -55,13 +48,70 @@ const initGlider = async () => {
     }
 }
 
+const updateGlider = async (glider) => {
+    try {
+        await client.connect()
+        const database = await client.db(databaseName)
+        const collection = database.collection("glider")
+        const updated = await collection.findOneAndUpdate({ id: glider.id }, glider)
+        if (!updated) {
+            throw Error("Glider does not exist, cannot update")
+        }
+    } catch(e) {
+        console.error(e)
+    } finally {
+        await client.close()
+    }
+}
 
-// const initThermal = async () => {
-//     try {
+const deleteGlider = async () => {
 
-//     }
+}
 
-// }
+const addFlight = async (flight) => {
+    try {
+        await client.connect()
+        const database = await client.db(databaseName)
+        const collection = database.collection("flight")
+        const exists = await collection.findOne({ id: flight.id})
+        if (!exists) {
+            const result = await collection.insertOne(flight)
+        } else {
+            throw Error("Flight already exists, cannot add")
+        }
+        
+    } catch(e) {
+        console.error(e)
+    } finally {
+        await client.close()
+    }
+}
+
+const updateFlight = async (flight) => {
+    try {
+        await client.connect()
+        const database = await client.db(databaseName)
+        const collection = database.collection("flight")
+        const updated = await collection.findOneAndUpdate({ id: flight.id }, flight)
+        if (!updated) {
+            throw Error("Glider does not exist, cannot update")
+        }
+    } catch(e) {
+        console.error(e)
+    } finally {
+        await client.close()
+    }
+}
+
+const deleteFlight = async () => {
+
+}
 
 
-initGlider()
+
+const initBoth = async () => {
+    await addGlider(testGlider[0])
+    await addFlight(testFlight[0])
+}
+
+initBoth()
