@@ -1,5 +1,6 @@
-const { MongoClient, ServerApiVersion } = require("mongodb")
+const { mongoose } = require("mongoose")
 const { Glider, Flight } = require("./Schema.js")
+const { generateGlider } = require("./ModelObjectGenerator.js")
 const { testFlight, testGlider } = require("./TestData.js")
 
 
@@ -7,22 +8,20 @@ const { testFlight, testGlider } = require("./TestData.js")
 
 // CONFIG INFO
 const uri = "mongodb+srv://andrew:abadwerd153@cluster0.gm1gb9u.mongodb.net/?retryWrites=true&w=majority"
-const databaseName = "Cluster0"
 
 // mongodb client
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationIssues: true
-    }
-})
+// const client = new MongoClient(uri, {
+//     serverApi: {
+//         version: ServerApiVersion.v1,
+//         strict: true,
+//         deprecationIssues: true
+//     }
+// })
+mongoose.connect(uri)
 
 const run = async () => {
     try {
-        await client.connect()
-        await client.db(databaseName).command({ ping: 1 })
-        console.log("Pinged deployment. Successfully connected")
+        const client = await mongoose.connect(uri)
     } catch(e) {
         console.error(e)
     } finally {
@@ -32,10 +31,8 @@ const run = async () => {
 
 const getGlider = async (gliderId) => {
     try {
-        await client.connect()
-        const database = await client.db(databaseName)
-        const collection = database.collection("glider")
-        const result = await collection.findOne({ id: gliderId })
+        const client = await mongoose.connect(uri)
+        const result = await Glider.findOne({ id: gliderId })
         if (!result) {
             throw Error("Glider not found")
         }
@@ -49,12 +46,12 @@ const getGlider = async (gliderId) => {
 
 const addGlider = async (glider) => {
     try {
-        await client.connect()
-        const database = await client.db(databaseName)
-        const collection = database.collection("glider")
-        const exists = await collection.findOne({ id: glider.id})
+        const client = await mongoose.connect(uri)
+        const exists = await Glider.findOne({ id: glider.id })
         if (!exists) {
-            const result = await collection.insertOne(testGlider[0])
+            console.log("GENERATED GLIDER")
+            console.log(generateGlider(glider))
+            const result = await Glider.create(generateGlider(glider))
         } else {
             throw Error("Glider already exists, cannot add")
         }
@@ -63,6 +60,21 @@ const addGlider = async (glider) => {
     } finally {
         await client.close()
     }
+        // const collection = database.collection("glider")
+        // const exists = await Glider.findOne({ id: glider.id})
+        // if (!exists) {
+        //     // const result = await Glider.create({
+        //     //     id: glider.id
+        //     // })
+        // } else {
+        //     throw Error("Glider already exists, cannot add")
+        // }
+
+    // } catch(e) {
+    //     console.error(e)
+    // } finally {
+    //     client.close()
+    // }
 }
 
 const updateGlider = async (glider) => {
@@ -77,7 +89,7 @@ const updateGlider = async (glider) => {
     } catch(e) {
         console.error(e)
     } finally {
-        await client.close()
+        client.close()
     }
 }
 
@@ -98,7 +110,7 @@ const getFlight = async(flightId) => {
     } catch(e) {
         console.error(e)
     } finally {
-        await client.close()
+        client.close()
     }
 }
 
@@ -117,7 +129,7 @@ const addFlight = async (flight) => {
     } catch(e) {
         console.error(e)
     } finally {
-        await client.close()
+        client.close()
     }
 }
 
@@ -133,7 +145,7 @@ const updateFlight = async (flight) => {
     } catch(e) {
         console.error(e)
     } finally {
-        await client.close()
+        client.close()
     }
 }
 

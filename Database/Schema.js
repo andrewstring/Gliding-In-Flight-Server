@@ -1,33 +1,13 @@
 const mongoose = require("mongoose")
 
 // Schemas
-const gliderSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true
+const locationSchema = new mongoose.Schema({
+    latitude: {
+        type: Number,
+        default: null,
+        required: false
     },
-    name: {
-        type: String,
-        required: true
-    },
-    location: {
-        latitude: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        longitude: {
-            type: Number,
-            default: null,
-            required: false
-        }
-    },
-    lastUpdate: {
-        type: Date,
-        default: (new Date()).getDate(),
-        required: true
-    },
-    previousAltitude: {
+    longitude: {
         type: Number,
         default: null,
         required: false
@@ -37,8 +17,6 @@ const gliderSchema = new mongoose.Schema({
         default: null,
         required: false
     },
-
-    //Barometric altitudes
     absoluteAltitude: {
         type: Number,
         default: null,
@@ -49,11 +27,39 @@ const gliderSchema = new mongoose.Schema({
         default: null,
         required: false
     },
-
     speed: {
         type: Number,
         default: null,
         required: false
+    }
+})
+
+const gliderSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    currentLocation: {
+        type: locationSchema,
+        default: null,
+        required: false
+    },
+    currentUpdate: {
+        type: String,
+        required: true
+    },
+    lastLocation: {
+        type: locationSchema,
+        default: null,
+        required: false
+    },
+    lastUpdate: {
+        type: String,
+        required: true
     }
 })
 
@@ -67,41 +73,13 @@ const flightSchema = new mongoose.Schema({
         required: true
     },
     dateOfFlight: {
-        type: Date,
-        default: (new Date()).getDate(),
-        required: false
+        type: String,
+        required: true
     },
-    flightData: [{
-        latitude: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        longitude: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        altitude: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        absoluteAltitude: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        relativeAltitude: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        speed: {
-            type: Number,
-            default: null,
-            required: false
-        }
+    locations: [{
+        type: locationSchema,
+        default: null,
+        required: false
     }]
 })
 

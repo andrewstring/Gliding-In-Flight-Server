@@ -39,13 +39,13 @@ app.get("/glider-tracking/glider", async (req, res) => {
         console.log(glider)
         res.send(glider)
     } catch(e) {
+        console.log(e)
         res.send(e)
     }
 })
 app.post("/glider-tracking/glider", async (req, res) => {
     try {
         await Mongo.addGlider(req.body)
-        console.log("Added")
         res.send("Success")
     } catch(e) {
         res.send(e)
