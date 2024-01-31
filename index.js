@@ -42,9 +42,11 @@ app.get("/glider-tracking/glider", async (req, res) => {
         res.send(e)
     }
 })
-app.post("/glider-tracking/glider", (req, res) => {
+app.post("/glider-tracking/glider", async (req, res) => {
     try {
-        res.send(Mongo.addGlider(req.body))
+        await Mongo.addGlider(req.body)
+        console.log("Added")
+        res.send("Success")
     } catch(e) {
         res.send(e)
     }
