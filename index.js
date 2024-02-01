@@ -1,7 +1,10 @@
 const express = require("express")
+const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 
 const Mongo = require("./Database/Mongo.js")
+const { mongoUri } = require("./Config.js")
+const { GliderResponse } = require("./ResponseCodes.js")
 
 const app = express()
 const port = 3000
@@ -33,11 +36,12 @@ app.post("/glider-tracking/gps", (req, res) => {
 })
 
 
+
+// Main Endpoints
 app.get("/glider-tracking/glider", async (req, res) => {
     try {
-        let glider = await Mongo.getGlider(req.query.id)
-        console.log(glider)
-        res.send(glider)
+        const result = await Mongo.getGlider(req.query.id)
+        res.send(result)
     } catch(e) {
         console.log(e)
         res.send(e)
@@ -45,8 +49,8 @@ app.get("/glider-tracking/glider", async (req, res) => {
 })
 app.post("/glider-tracking/glider", async (req, res) => {
     try {
-        await Mongo.addGlider(req.body)
-        res.send("Success")
+        const result = await Mongo.addGlider(req.body)
+        res.send(result)
     } catch(e) {
         res.send(e)
     }
@@ -72,4 +76,14 @@ app.post("/glider-tracking/flight", (req, res) => {
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
+    console.log("Connecting to database")
+    try {
+        (async () => {
+            mongoose.connect(mongoUri)
+            console.log("Connected to mongodb database")
+        })()
+    } catch(e) {
+        console.error(e)
+    }
+    
 })
