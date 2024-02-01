@@ -4,13 +4,11 @@ const mongoose = require("mongoose")
 const locationSchema = new mongoose.Schema({
     latitude: {
         type: Number,
-        default: null,
-        required: false
+        required: true
     },
     longitude: {
         type: Number,
-        default: null,
-        required: false
+        required: true
     },
     altitude: {
         type: Number,
@@ -50,7 +48,8 @@ const gliderSchema = new mongoose.Schema({
     },
     currentUpdate: {
         type: String,
-        required: true
+        default: null,
+        required: false
     },
     lastLocation: {
         type: locationSchema,
@@ -59,7 +58,8 @@ const gliderSchema = new mongoose.Schema({
     },
     lastUpdate: {
         type: String,
-        required: true
+        default: null,
+        required: false
     }
 })
 
