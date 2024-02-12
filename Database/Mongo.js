@@ -1,5 +1,5 @@
 const { Glider, Flight } = require("./Schema.js")
-const { generateGlider } = require("./ModelObjectGenerator.js")
+const { generateGlider, generateFlight } = require("./ModelObjectGenerator.js")
 const { testFlight, testGlider } = require("./TestData.js")
 const { mongoose } = require("mongoose")
 const { GliderResponse } = require("../ResponseCodes")
@@ -26,7 +26,7 @@ const addGlider = async (glider) => {
     try {
         if (mongoose.connection.readyState != 1) {
             console.log("Mongodb not connected")
-            return {message: GliderResponse.MongoDBIssue, data: null}
+            return {message: GeneralResponse.MongoDBIssue, data: null}
         }
         const exists = await Glider.findOne({ id: glider.id })
         if (!exists) {
@@ -68,12 +68,30 @@ const getFlight = async(flightId) => {
 }
 
 const addFlight = async (flight) => {
+    console.log("Flight Locations")
+    console.log(flight.locations)
+    console.log("Single Location")
+    console.log(flight.locations[1])
+    console.log("Absolute Barometric")
+    console.log(flight.absoluteBarometricAltitudes)
+    console.log("Single Absolute Barometric")
+    console.log(flight.absoluteBarometricAltitudes[1])
+    console.log("Relative Barometric")
+    console.log(flight.relativeBarometricAltitudes)
+    console.log("Single Relative Barometric")
+    console.log(flight.relativeBarometricAltitudes[1])
+    
     try {
-        const exists = await collection.findOne({ id: flight.id})
+        if (mongoose.connection.readyState != 1) {
+            console.log("Mongodb not connected")
+            return {message: GeneralResponse.MongoDBIssue, data: null}
+        }
+        const exists = await Flight.findOne({ id: flight.id })
         if (!exists) {
-            const result = await collection.insertOne(flight)
+            const result = await Flight.create(generateFlight(flight))
+            return {message: FlightResponse.FlightCreated, data: result}
         } else {
-            throw Error("Flight already exists, cannot add")
+            return {message: FlightResponse.FlightExists, data: null}
         }
     } catch(e) {
         console.error(e)

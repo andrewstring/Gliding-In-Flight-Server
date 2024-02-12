@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 
 // Schemas
 const locationSchema = new mongoose.Schema({
+    date: {
+        type: String,
+        required: true
+    },
     latitude: {
         type: Number,
         required: true
@@ -15,17 +19,46 @@ const locationSchema = new mongoose.Schema({
         default: null,
         required: false
     },
+    speed: {
+        type: Number,
+        default: null,
+        required: false
+    }
+})
+
+const absoluteBarometricAltitudeSchema = new mongoose.Schema({
+    date: {
+        type: String,
+        required: true
+    },
     absoluteAltitude: {
         type: Number,
         default: null,
         required: false
+    },
+    absoluteAccuracy: {
+        type: Number,
+        default: null,
+        required: false
+    },
+    absolutePrecision: {
+        type: Number,
+        default: null,
+        required: false
+    }
+})
+
+const relativeBarometricAltitudeSchema = new mongoose.Schema({
+    date: {
+        type: String,
+        required: true
     },
     relativeAltitude: {
         type: Number,
         default: null,
         required: false
     },
-    speed: {
+    relativePressure: {
         type: Number,
         default: null,
         required: false
@@ -78,6 +111,16 @@ const flightSchema = new mongoose.Schema({
     },
     locations: [{
         type: locationSchema,
+        default: null,
+        required: false
+    }],
+    absoluteBarometricAltitude: [{
+        type: absoluteBarometricAltitudeSchema,
+        default: null,
+        required: false
+    }],
+    relativeBarometricAltitude: [{
+        type: relativeBarometricAltitudeSchema,
         default: null,
         required: false
     }]

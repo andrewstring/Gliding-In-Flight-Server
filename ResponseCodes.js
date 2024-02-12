@@ -1,9 +1,20 @@
+const GeneralResponse = {
+    MongoDBIssue: "MongoDBIssue"
+}
+
 const GliderResponse = {
 
-    MongoDBIssue: "MongoDBIssue",
     UserDoesNotExist: "UserDoesNotExist",
     UserExists: "UserExists",
     UserCreated: "UserCreated"
+
+}
+
+const FlightResponse = {
+
+    FlightDoesNotExist: "FlightDoesNotExist",
+    FlightExists: "FlightExists",
+    FlightCreated: "FlightCreated"
 
 }
 

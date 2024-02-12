@@ -1,11 +1,10 @@
 
 const generateLocation = (currentLocation) => {
     return {
+        date: currentLocation.date,
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
         altitude: currentLocation.altitude,
-        absoluteAltitude: currentLocation.absoluteAltitude,
-        relativeAltitude: currentLocation.relativeAltitude,
         speed: currentLocation.speed
     }
 }
@@ -24,8 +23,10 @@ const generateGlider = (data) => {
 const generateFlight = (data) => {
     return {
         id: data.id,
+        name: data.name,
         glider: generateGlider(data.glider),
-        dateOfFlight: data.dateOfFlight
+        dateOfFlight: data.dateOfFlight,
+        location: "jkl"
     }
 }
 
