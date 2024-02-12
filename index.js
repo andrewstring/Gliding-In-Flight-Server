@@ -66,6 +66,8 @@ app.get("/glider-tracking/flight", (req, res) => {
 })
 app.post("/glider-tracking/flight", (req, res) => {
     try {
+        console.log("FLIGHT")
+        console.log(req.body)
         res.send(Mongo.addFlight(req.body))
     } catch(e) {
         res.send(e)
