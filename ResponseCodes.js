@@ -18,4 +18,4 @@ const FlightResponse = {
 
 }
 
-module.exports = { GliderResponse }
+module.exports = { GliderResponse, FlightResponse }

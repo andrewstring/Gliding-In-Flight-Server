@@ -114,12 +114,12 @@ const flightSchema = new mongoose.Schema({
         default: null,
         required: false
     }],
-    absoluteBarometricAltitude: [{
+    absoluteBarometricAltitudes: [{
         type: absoluteBarometricAltitudeSchema,
         default: null,
         required: false
     }],
-    relativeBarometricAltitude: [{
+    relativeBarometricAltitudes: [{
         type: relativeBarometricAltitudeSchema,
         default: null,
         required: false
