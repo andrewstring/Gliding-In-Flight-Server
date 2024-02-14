@@ -28,6 +28,10 @@ for index, location in enumerate(data["locations"][:10]):
     print("\t\tLongitude: {}".format(location["longitude"]["$numberDouble"]))
     print("\t\tAltitude: {}".format(location["altitude"]["$numberDouble"]))
     print("\t\tSpeed: {}".format(location["speed"]["$numberDouble"]))
+    print("\t\tGoogle Elevation API: {}".format(str(getElevation(
+        float(location["latitude"]["$numberDouble"]),
+        float(location["longitude"]["$numberDouble"])
+    ))))
 
 print("\nAbsolute Barometric Data")
 for index, absBar in enumerate(data["absoluteBarometricAltitudes"][:10]):
@@ -45,6 +49,6 @@ for index, relBar in enumerate(data["relativeBarometricAltitudes"][:10]):
     print("\t\tRelative Pressure: {}".format(relBar["relativePressure"]["$numberDouble"]))
 
 
-print(getElevation(
-    data["locations"][0]["latitude"]["$numberDouble"],
-    data["locations"][0]["longitude"]["$numberDouble"]))
+#print(getElevation(
+#    data["locations"][0]["latitude"]["$numberDouble"],
+#    data["locations"][0]["longitude"]["$numberDouble"]))
