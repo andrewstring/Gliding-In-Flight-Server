@@ -40,7 +40,7 @@ app.post("/glider-tracking/gps", (req, res) => {
 // Main Endpoints
 app.get("/glider-tracking/glider", async (req, res) => {
     try {
-        const result = await Mongo.getGlider(req.query.id)
+        const result = await Mongo.getGlider(req.query.name)
         res.send(result)
     } catch(e) {
         console.log(e)
@@ -49,7 +49,7 @@ app.get("/glider-tracking/glider", async (req, res) => {
 })
 app.post("/glider-tracking/glider", async (req, res) => {
     try {
-        const result = await Mongo.addGlider(req.body)
+        const result = await Mongo.addGlider(req.query.name, req.body)
         res.send(result)
     } catch(e) {
         res.send(e)

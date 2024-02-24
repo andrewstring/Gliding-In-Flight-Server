@@ -4,6 +4,10 @@ const GeneralResponse = {
 
 const GliderResponse = {
 
+    ErrorGettingUser: "ErrorGettingUser",
+    ErrorAddingUser: "ErrorAddingUser",
+    ErrorUpdatingUser: "ErrorUpdatingUser",
+    ErrorDeletingUser: "ErrorDeletingUser",
     UserDoesNotExist: "UserDoesNotExist",
     UserExists: "UserExists",
     UserCreated: "UserCreated",
@@ -13,6 +17,10 @@ const GliderResponse = {
 
 const FlightResponse = {
 
+    ErrorGettingFlight: "ErrorGettingFlight",
+    ErrorAddingFlight: "ErrorAddingFlight",
+    ErrorUpdatingFlight: "ErrorUpdatingFlight",
+    ErrorDeletingFlight: "ErrorDeletingFlight",
     FlightDoesNotExist: "FlightDoesNotExist",
     FlightExists: "FlightExists",
     FlightCreated: "FlightCreated",
@@ -22,6 +30,10 @@ const FlightResponse = {
 
 const ThermalResponse = {
 
+    ErrorGettingThermal: "ErrorGettingThermal",
+    ErrorAddingThermal: "ErrorAddingThermal",
+    ErrorUpdatingThermal: "ErrorUpdatingThermal",
+    ErrorDeletingThermal: "ErrorDeletingThermal",
     ThermalDoesNotExist: "ThermalDoesNotExist",
     ThermalExists: "ThermalExists",
     ThermalCreated: "ThermalCreated",

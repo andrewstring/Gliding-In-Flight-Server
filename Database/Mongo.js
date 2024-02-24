@@ -5,54 +5,52 @@ const { mongoose } = require("mongoose")
 const { GliderResponse, FlightResponse, ThermalResponse } = require("../ResponseCodes")
 
 
-const getGlider = async (gliderId) => {
+const getGlider = async (gliderName) => {
     try {
         if (mongoose.connection.readyState != 1) {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const result = await Glider.findOne({ id: gliderId })
+        const result = await Glider.findOne({ name: gliderName })
         if (!result) {
             return {message: GliderResponse.UserDoesNotExist, data: null}
         }
         return {message: GliderResponse.UserExists, data: result}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: GliderResponse.ErrorGettingUser, data: null}
     }
 }
 
 const addGlider = async (glider) => {
-    print("GLIDER")
-    print(glider)
     try {
         if (mongoose.connection.readyState != 1) {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const exists = await Glider.findOne({ id: glider.id })
+        const exists = await Glider.findOne({ name: glider.name })
         if (!exists) {
             const result = await Glider.create(generateGlider(glider))
             return {message: GliderResponse.UserCreated, data: result}
         }
         return {message: GliderResponse.UserExists, data: glider}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: GliderResponse.ErrorAddingUser, data: glider}
     }
 }
 
-const updateGlider = async (glider) => {
+const updateGlider = async (gliderName, glider) => {
     try {
         if (mongoose.connection.readyState != 1) {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const previousGlider = await Glider.findOneAndUpdate({ id: glider.id }, glider)
+        const previousGlider = await Glider.findOneAndUpdate({ name: gliderName }, glider)
         if (!previousGlider) {
             return {message: GliderResponse.UserDoesNotExist, data: glider}
         }
-        return {message: GliderResponse.UserUpdated, glider}
-    } catch(e) {
-        console.error(e)
+        return {message: GliderResponse.UserUpdated, data: glider}
+    } catch {
+        return {message: GliderResponse.ErrorUpdatingUser, data: glider}
     }
 }
 
@@ -67,8 +65,8 @@ const deleteGlider = async (glider) => {
             return {message: GliderResponse.UserDoesNotExist, data: glider}
         }
         return {message: GliderResponse.UserDeleted, data: glider}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: GliderResponse.ErrorDeletingUser, data: glider}
     }
 
 }
@@ -84,8 +82,8 @@ const getFlight = async (flightId) => {
             return {message: FlightResponse.FlightDoesNotExist, data: flightId}
         }
         return {message: FlightResponse.FlightExists, data: result}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: FlightResponse.ErrorGettingFlight, data: null}
     }
 }
 
@@ -101,8 +99,8 @@ const addFlight = async (flight) => {
             return {message: FlightResponse.FlightCreated, data: result}
         }
         return {message: FlightResponse.FldightExists, data: flight}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: FlightResponse.ErrorAddingFlight, data: flight}
     }
 }
 
@@ -117,8 +115,8 @@ const updateFlight = async (flight) => {
             return {message: FlightResponse.FlightDoesNotExist, data: flight}
         }
         return {message: FlightResponse.FlightUpdated, data: flight}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: FlightResponse.ErrorUpdatingFlight, data: flight}
     }
 }
 
@@ -133,8 +131,8 @@ const deleteFlight = async (flight) => {
             return {message: FlightResponse.FlightDoesNotExist, data: flight}
         }
         return {message: FlightResponse.FlightDeleted, data: flight}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: FlightResponse.ErrorDeletingFlight, data: flight}
     }
 }
 
@@ -149,8 +147,8 @@ const getThermal = async (thermalId) => {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermalId}
         }
         return {message: ThermalResponse.ThermalExists, data: result}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: ThermalResponse.ErrorGettingThermal, data: null}
 
     }
 }
@@ -167,8 +165,8 @@ const addThermal = async (thermal) => {
             return {message: ThermalResponse.ThermalCreated, data: result}
         }
         return {message: ThermalResponse.ThermalExists, data: thermal}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: ThermalResponse.ErrorAddingThermal, data: thermal}
     }
 }
 
@@ -183,8 +181,8 @@ const updateThermal = async (thermal) => {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermal}
         }
         return {message: ThermalResponse.ThermalUpdated, data: thermal}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: ThermalResponse.ErrorUpdatingThermal, data: thermal}
     }
 }
 
@@ -199,8 +197,8 @@ const deleteThermal = async (thermal) => {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermal}
         }
         return {message: ThermalResponse.ThermalDeleted, data: thermal}
-    } catch(e) {
-        console.error(e)
+    } catch {
+        return {message: ThermalResponse.ErrorDeletingThermal, data: thermal}
     }
 }
 
