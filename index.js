@@ -57,25 +57,44 @@ app.post("/glider-tracking/glider", async (req, res) => {
 })
 
 
-app.get("/glider-tracking/flight", (req, res) => {
+app.get("/glider-tracking/flight", async (req, res) => {
     try {
-        res.send(Mongo.getFlight(req.query.id))
+        const result = await Mongo.getFlight(req.query.id)
+        res.send(result)
     } catch(e) {
         res.send(e)
     }
 })
-app.post("/glider-tracking/flight", (req, res) => {
+app.post("/glider-tracking/flight", async (req, res) => {
     try {
-        console.log("FLIGHT")
-        console.log(req.body)
-        res.send(Mongo.addFlight(req.body))
+        const result = await Mongo.addFlight(req.body)
+        res.send(result)
     } catch(e) {
         res.send(e)
     }
 })
 
+app.get("/glider-tracking/thermal", async (req, res) => {
+    try {
+        const result = await Mongo.getThermal(req.query.id)
+        res.send(result)
+    } catch(e) {
+        console.error(e)
+        res.send(e)
+    }
+})
+app.post("/glider-tracking/thermal", async (req, res) => {
+    try {
+        const result = await Mongo.addThermal(req.body)
+        res.send(result)
+    } catch(e) {
+        console.error(e)
+        res.send(e)
+    }
+})
 
 
+// Start express server
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
     console.log("Connecting to database")

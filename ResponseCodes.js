@@ -6,16 +6,27 @@ const GliderResponse = {
 
     UserDoesNotExist: "UserDoesNotExist",
     UserExists: "UserExists",
-    UserCreated: "UserCreated"
-
+    UserCreated: "UserCreated",
+    UserUpdated: "UserUpdated",
+    UserDeleted: "UserDeleted"
 }
 
 const FlightResponse = {
 
     FlightDoesNotExist: "FlightDoesNotExist",
     FlightExists: "FlightExists",
-    FlightCreated: "FlightCreated"
-
+    FlightCreated: "FlightCreated",
+    FlightUpdated: "FlightUpdated",
+    FlightDeleted: "FlightDeleted"
 }
 
-module.exports = { GliderResponse, FlightResponse }
+const ThermalResponse = {
+
+    ThermalDoesNotExist: "ThermalDoesNotExist",
+    ThermalExists: "ThermalExists",
+    ThermalCreated: "ThermalCreated",
+    ThermalUpdated: "ThermalUpdated",
+    ThermalDeleted: "ThermalDeleted"
+}
+
+module.exports = { GliderResponse, FlightResponse, ThermalResponse }

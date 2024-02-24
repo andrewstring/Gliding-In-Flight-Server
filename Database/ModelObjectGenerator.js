@@ -66,4 +66,13 @@ const generateFlight = (data) => {
     }
 }
 
+const generateThermal = (data) => {
+    return {
+        id: data.id,
+        location: generateLocation(data.location),
+        glider: generateGlider(data.glider),
+        detectedOn: data.detectedOn
+    }
+}
+
 module.exports = { generateGlider, generateFlight }

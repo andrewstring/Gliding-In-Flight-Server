@@ -126,23 +126,28 @@ const flightSchema = new mongoose.Schema({
     }]
 })
 
-// const thermalSchema = new mongoose.Schema({
-//     id: String,
-//     location: {
-//         latitude: Number,
-//         longitude: Number
-//     },
-//     startingAltitude: Number,
-//     finishingAltitude: Number,
-// })
-
-// const adbsRecordSchema = new mongoose.Schema({
-
-// })
-
+const thermalSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: locationSchema,
+        required: true
+    },
+    glider: {
+        type: gliderSchema,
+        required: true
+    },
+    detectedOn: {
+        type: String,
+        required: true
+    }
+})
 
 const Glider = mongoose.model("Glider", gliderSchema)
 const Flight = mongoose.model("Flight", flightSchema)
+const Thermal = mongoose.model("Thermal", thermalSchema)
 
 
-module.exports = { Glider, Flight }
+module.exports = { Glider, Flight, Thermal }
