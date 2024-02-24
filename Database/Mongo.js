@@ -77,7 +77,7 @@ const getFlight = async (gliderName, flightId) => {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const result = await Flight.findOne({ glider[name]: gliderName, id: flightId })
+        const result = await Flight.findOne({ glider: {name: gliderName}, id: flightId })
         if (!result) {
             return {message: FlightResponse.FlightDoesNotExist, data: flightId}
         }
