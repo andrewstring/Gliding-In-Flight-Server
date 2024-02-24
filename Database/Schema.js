@@ -16,8 +16,7 @@ const locationSchema = new mongoose.Schema({
     },
     altitude: {
         type: Number,
-        default: null,
-        required: false
+        required: true
     },
     speed: {
         type: Number,
@@ -101,11 +100,7 @@ const flightSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    glider: {
-        type: gliderSchema,
-        required: true
-    },
-    dateOfFlight: {
+    name: {
         type: String,
         required: true
     },
@@ -123,7 +118,63 @@ const flightSchema = new mongoose.Schema({
         type: relativeBarometricAltitudeSchema,
         default: null,
         required: false
-    }]
+    }],
+    glider: {
+        type: gliderSchema,
+        required: true
+    },
+    dateOfFlight: {
+        type: String,
+        required: true
+    },
+
+    // Flight Metrics
+    totalTime: {
+        type: Number,
+        default: 0.0,
+        required: true
+    },
+    distanceTraveled: {
+        type: Number,
+        default: 0.0,
+        required: true
+    },
+    gpsHeightGained: {
+        type: Number,
+        default: 0.0,
+        required: true
+    },
+    absoluteBarometricHeightGained: {
+        type: Number,
+        default: 0.0,
+        required: true
+    },
+    relativeBarometricHeightGained: {
+        type: Number,
+        default: 0.0,
+        required: true
+    },
+    maxHeight: {
+        type: Number,
+        default: 0.0,
+        required: true
+    },
+    minLatitude: {
+        type: Number,
+        required: false
+    },
+    maxLatitude: {
+        type: Number,
+        required: false
+    },
+    minLongitude: {
+        type: Number,
+        required: false
+    },
+    maxLongitude: {
+        type: Number,
+        required: false
+    }
 })
 
 const thermalSchema = new mongoose.Schema({

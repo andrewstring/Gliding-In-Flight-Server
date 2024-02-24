@@ -49,7 +49,7 @@ app.get("/glider-tracking/glider", async (req, res) => {
 })
 app.post("/glider-tracking/glider", async (req, res) => {
     try {
-        const result = await Mongo.addGlider(req.query.name, req.body)
+        const result = await Mongo.addGlider(req.body)
         res.send(result)
     } catch(e) {
         res.send(e)
@@ -57,7 +57,7 @@ app.post("/glider-tracking/glider", async (req, res) => {
 })
 app.put("/glider-tracking/glider", async (req, res) => {
     try {
-        const result = await Mongo.updateGlider(req.body)
+        const result = await Mongo.updateGlider(req.query.name, req.body)
         res.send(result)
     } catch(e) {
         res.send(e)
@@ -75,7 +75,7 @@ app.delete("/glider-tracking/glider", async (req, res) => {
 
 app.get("/glider-tracking/flight", async (req, res) => {
     try {
-        const result = await Mongo.getFlight(req.query.id)
+        const result = await Mongo.getFlight(req.query.name, req.query.id)
         res.send(result)
     } catch(e) {
         res.send(e)

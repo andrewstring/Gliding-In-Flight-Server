@@ -60,7 +60,7 @@ const deleteGlider = async (glider) => {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const deleteOperation = await Glider.deleteOne({ id: glider.id })
+        const deleteOperation = await Glider.deleteOne({ name: glider.name })
         if (deleteOperation.deletedCount < 1) {
             return {message: GliderResponse.UserDoesNotExist, data: glider}
         }
@@ -71,13 +71,13 @@ const deleteGlider = async (glider) => {
 
 }
 
-const getFlight = async (flightId) => {
+const getFlight = async (gliderName, flightId) => {
     try {
         if (mongoose.connection.readyState != 1) {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const result = await Flight.findOne({ id: flightId })
+        const result = await Flight.findOne({ glider[name]: gliderName, id: flightId })
         if (!result) {
             return {message: FlightResponse.FlightDoesNotExist, data: flightId}
         }
