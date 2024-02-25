@@ -71,13 +71,13 @@ const deleteGlider = async (glider) => {
 
 }
 
-const getFlight = async (gliderName, flightId) => {
+const getFlight = async (flightId) => {
     try {
         if (mongoose.connection.readyState != 1) {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const result = await Flight.findOne({ glider: {name: gliderName}, id: flightId })
+        const result = await Flight.findOne({ id: flightId })
         if (!result) {
             return {message: FlightResponse.FlightDoesNotExist, data: flightId}
         }
@@ -104,13 +104,13 @@ const addFlight = async (flight) => {
     }
 }
 
-const updateFlight = async (flight) => {
+const updateFlight = async (flightId, flight) => {
     try {
         if (mongoose.connection.readyState != 1) {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const previousFlight = await Flight.findOneAndUpdate({ id: flight.id }, flight)
+        const previousFlight = await Flight.findOneAndUpdate({ id: flightId }, flight)
         if (!previousFlight) {
             return {message: FlightResponse.FlightDoesNotExist, data: flight}
         }
@@ -170,13 +170,13 @@ const addThermal = async (thermal) => {
     }
 }
 
-const updateThermal = async (thermal) => {
+const updateThermal = async (thermalId, thermal) => {
     try {
         if (mongoose.connection.readyState != 1) {
             console.error("Mongodb not connected")
             return {message: GeneralResponse.MongoDBIssue, data: null}
         }
-        const previousThermal = await Thermal.findOneAndUpdate({ id: thermal.id }, thermal)
+        const previousThermal = await Thermal.findOneAndUpdate({ id: thermalId }, thermal)
         if(!previousThermal) {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermal}
         }

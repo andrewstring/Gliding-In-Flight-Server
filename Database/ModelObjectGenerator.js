@@ -5,7 +5,7 @@ const generateLocation = (currentLocation) => {
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
         altitude: currentLocation.altitude,
-        speed: "speed" in data ? currentLocation.speed : null
+        speed: "speed" in currentLocation ? currentLocation.speed : null
     }
 }
 
@@ -44,7 +44,7 @@ const generateFlight = (data) => {
         locations: data.locations.map((location) => generateLocation(location)),
         absoluteBarometricAltitudes: data.absoluteBarometricAltitudes.map((absoluteAltitude) => generateAbsoluteBarometricAltitude(absoluteAltitude)),
         relativeBarometricAltitudes: data.relativeBarometricAltitudes.map((relativeAltitude) => generateRelativeBarometricAltitude(relativeAltitude)),
-        glider: generateGlider(data.glider),
+        gliderId: data.gliderId,
         dateOfFlight: data.dateOfFlight,
         totalTime: data.totalTime,
         distanceTraveled: data.distanceTraveled,
@@ -63,7 +63,7 @@ const generateThermal = (data) => {
     return {
         id: data.id,
         location: generateLocation(data.location),
-        glider: generateGlider(data.glider),
+        gliderId: data.gliderId,
         detectedOn: data.detectedOn
     }
 }
