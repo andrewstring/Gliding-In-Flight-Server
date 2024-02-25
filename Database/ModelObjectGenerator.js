@@ -1,5 +1,7 @@
+const { mongoose } = require("mongoose")
 
 const generateLocation = (currentLocation) => {
+    console.log("Generating Location")
     return {
         date: currentLocation.date,
         latitude: currentLocation.latitude,
@@ -21,8 +23,8 @@ const generateAbsoluteBarometricAltitude = (altitude) => {
 const generateRelativeBarometricAltitude = (altitude) => {
     return {
         date: altitude.date,
-        relativeAltitude: "absoluteAltitude" in altitude ? altitude.relativeAltitude : null,
-        relativePressure: "absolutePressure" in altitude ? altitude.relativePressure : null
+        relativeAltitude: "relativeAltitude" in altitude ? altitude.relativeAltitude : null,
+        relativePressure: "relativePressure" in altitude ? altitude.relativePressure : null
     }
 }
 
@@ -44,11 +46,11 @@ const generateFlight = (data) => {
         locations: data.locations.map((location) => generateLocation(location)),
         absoluteBarometricAltitudes: data.absoluteBarometricAltitudes.map((absoluteAltitude) => generateAbsoluteBarometricAltitude(absoluteAltitude)),
         relativeBarometricAltitudes: data.relativeBarometricAltitudes.map((relativeAltitude) => generateRelativeBarometricAltitude(relativeAltitude)),
-        gliderId: data.gliderId,
+        gliderId: new mongoose.Types.ObjectId(data.gliderId),
         dateOfFlight: data.dateOfFlight,
         totalTime: data.totalTime,
         distanceTraveled: data.distanceTraveled,
-        gspHeightGained: data.gspHeightGained,
+        gpsHeightGained: data.gpsHeightGained,
         absoluteBarometricHeightGained: data.absoluteBarometricHeightGained,
         relativeBarometricHeightGained: data.relativeBarometricHeightGained,
         maxHeight: data.maxHeight,
@@ -63,9 +65,9 @@ const generateThermal = (data) => {
     return {
         id: data.id,
         location: generateLocation(data.location),
-        gliderId: data.gliderId,
+        gliderId: new mongoose.Types.ObjectId(data.gliderId),
         detectedOn: data.detectedOn
     }
 }
 
-module.exports = { generateGlider, generateFlight }
+module.exports = { generateGlider, generateFlight, generateThermal }

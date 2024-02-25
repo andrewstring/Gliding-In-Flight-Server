@@ -1,5 +1,5 @@
 const { Glider, Flight, Thermal } = require("./Schema.js")
-const { generateGlider, generateFlight } = require("./ModelObjectGenerator.js")
+const { generateGlider, generateFlight, generateThermal } = require("./ModelObjectGenerator.js")
 const { testFlight, testGlider } = require("./TestData.js")
 const { mongoose } = require("mongoose")
 const { GliderResponse, FlightResponse, ThermalResponse } = require("../ResponseCodes")
@@ -16,7 +16,8 @@ const getGlider = async (gliderName) => {
             return {message: GliderResponse.UserDoesNotExist, data: null}
         }
         return {message: GliderResponse.UserExists, data: result}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: GliderResponse.ErrorGettingUser, data: null}
     }
 }
@@ -33,7 +34,8 @@ const addGlider = async (glider) => {
             return {message: GliderResponse.UserCreated, data: result}
         }
         return {message: GliderResponse.UserExists, data: glider}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: GliderResponse.ErrorAddingUser, data: glider}
     }
 }
@@ -49,7 +51,8 @@ const updateGlider = async (gliderName, glider) => {
             return {message: GliderResponse.UserDoesNotExist, data: glider}
         }
         return {message: GliderResponse.UserUpdated, data: glider}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: GliderResponse.ErrorUpdatingUser, data: glider}
     }
 }
@@ -65,7 +68,8 @@ const deleteGlider = async (glider) => {
             return {message: GliderResponse.UserDoesNotExist, data: glider}
         }
         return {message: GliderResponse.UserDeleted, data: glider}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: GliderResponse.ErrorDeletingUser, data: glider}
     }
 
@@ -82,7 +86,8 @@ const getFlight = async (flightId) => {
             return {message: FlightResponse.FlightDoesNotExist, data: flightId}
         }
         return {message: FlightResponse.FlightExists, data: result}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: FlightResponse.ErrorGettingFlight, data: null}
     }
 }
@@ -99,7 +104,8 @@ const addFlight = async (flight) => {
             return {message: FlightResponse.FlightCreated, data: result}
         }
         return {message: FlightResponse.FlightExists, data: flight}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: FlightResponse.ErrorAddingFlight, data: flight}
     }
 }
@@ -115,7 +121,8 @@ const updateFlight = async (flightId, flight) => {
             return {message: FlightResponse.FlightDoesNotExist, data: flight}
         }
         return {message: FlightResponse.FlightUpdated, data: flight}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: FlightResponse.ErrorUpdatingFlight, data: flight}
     }
 }
@@ -131,7 +138,8 @@ const deleteFlight = async (flight) => {
             return {message: FlightResponse.FlightDoesNotExist, data: flight}
         }
         return {message: FlightResponse.FlightDeleted, data: flight}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: FlightResponse.ErrorDeletingFlight, data: flight}
     }
 }
@@ -147,7 +155,8 @@ const getThermal = async (thermalId) => {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermalId}
         }
         return {message: ThermalResponse.ThermalExists, data: result}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: ThermalResponse.ErrorGettingThermal, data: null}
 
     }
@@ -165,7 +174,8 @@ const addThermal = async (thermal) => {
             return {message: ThermalResponse.ThermalCreated, data: result}
         }
         return {message: ThermalResponse.ThermalExists, data: thermal}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: ThermalResponse.ErrorAddingThermal, data: thermal}
     }
 }
@@ -181,7 +191,8 @@ const updateThermal = async (thermalId, thermal) => {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermal}
         }
         return {message: ThermalResponse.ThermalUpdated, data: thermal}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: ThermalResponse.ErrorUpdatingThermal, data: thermal}
     }
 }
@@ -197,7 +208,8 @@ const deleteThermal = async (thermal) => {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermal}
         }
         return {message: ThermalResponse.ThermalDeleted, data: thermal}
-    } catch {
+    } catch(e) {
+        console.error(e)
         return {message: ThermalResponse.ErrorDeletingThermal, data: thermal}
     }
 }

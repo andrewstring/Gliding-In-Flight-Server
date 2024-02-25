@@ -97,6 +97,7 @@ app.get("/glider-tracking/flight", async (req, res) => {
 // Flight object in body of request
 app.post("/glider-tracking/flight", async (req, res) => {
     try {
+        console.log("IN POST")
         const result = await Mongo.addFlight(req.body)
         res.send(result)
     } catch(e) {
@@ -169,7 +170,7 @@ app.put("/glider-tracking/thermal", async (req, res) => {
 // Thermal object in body of request (deletes by thermal.id)
 app.delete("/glider-tracking/thermal", async (req, res) => {
     try {
-        const result = await Mongo.updateThermal(req.body)
+        const result = await Mongo.deleteThermal(req.body)
         res.send(result)
     } catch(e) {
         res.send(e)
