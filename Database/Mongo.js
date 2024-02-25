@@ -98,7 +98,7 @@ const addFlight = async (flight) => {
             const result = await Flight.create(generateFlight(flight))
             return {message: FlightResponse.FlightCreated, data: result}
         }
-        return {message: FlightResponse.FldightExists, data: flight}
+        return {message: FlightResponse.FlightExists, data: flight}
     } catch {
         return {message: FlightResponse.ErrorAddingFlight, data: flight}
     }

@@ -1,43 +1,32 @@
 
 const generateLocation = (currentLocation) => {
-    console.log("CURRENTLOCATION")
-    console.log(currentLocation)
-
     return {
         date: currentLocation.date,
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
         altitude: currentLocation.altitude,
-        speed: currentLocation.speed
+        speed: "speed" in data ? currentLocation.speed : null
     }
 }
 
 const generateAbsoluteBarometricAltitude = (altitude) => {
-    console.log("ABSOLUTEBAR")
-    console.log(altitude)
-
     return {
         date: altitude.date,
-        absoluteAltitude: altitude.absoluteAltitude,
-        absoluteAccuracy: altitude.absoluteAccuracy,
-        absolutePrecision: altitude.absolutePrecision
+        absoluteAltitude: "absoluteAltitude" in altitude ? altitude.absoluteAltitude : null,
+        absoluteAccuracy: "absoluteAccuracy" in altitude ? altitude.absoluteAccuracy : null,
+        absolutePrecision: "absolutePrecision" in altitude ? altitude.absolutePrecision : null
     }
 }
 
 const generateRelativeBarometricAltitude = (altitude) => {
-    console.log("RELATIVEBAR")
-    console.log(altitude)
-
     return {
         date: altitude.date,
-        relativeAltitude: altitude.relativeAltitude,
-        relativePressure: altitude.relativePressure
+        relativeAltitude: "absoluteAltitude" in altitude ? altitude.relativeAltitude : null,
+        relativePressure: "absolutePressure" in altitude ? altitude.relativePressure : null
     }
 }
 
 const generateGlider = (data) => {
-    console.log("GLIDER DATA")
-    console.log(data)
     return {
         id: data.id,
         name: data.name,
@@ -49,20 +38,24 @@ const generateGlider = (data) => {
 }
 
 const generateFlight = (data) => {
-    console.log("FLIGHT DATA")
-    console.log(data)
-    console.log("ABOSLUTE")
-    console.log(data.absoluteBarometricAltitudes)
-    console.log(data.relativeBarometricAltitudes)
-
     return {
         id: data.id,
         name: data.name,
-        glider: generateGlider(data.glider),
-        dateOfFlight: data.dateOfFlight,
         locations: data.locations.map((location) => generateLocation(location)),
         absoluteBarometricAltitudes: data.absoluteBarometricAltitudes.map((absoluteAltitude) => generateAbsoluteBarometricAltitude(absoluteAltitude)),
-        relativeBarometricAltitudes: data.relativeBarometricAltitudes.map((relativeAltitude) => generateRelativeBarometricAltitude(relativeAltitude))
+        relativeBarometricAltitudes: data.relativeBarometricAltitudes.map((relativeAltitude) => generateRelativeBarometricAltitude(relativeAltitude)),
+        glider: generateGlider(data.glider),
+        dateOfFlight: data.dateOfFlight,
+        totalTime: data.totalTime,
+        distanceTraveled: data.distanceTraveled,
+        gspHeightGained: data.gspHeightGained,
+        absoluteBarometricHeightGained: data.absoluteBarometricHeightGained,
+        relativeBarometricHeightGained: data.relativeBarometricHeightGained,
+        maxHeight: data.maxHeight,
+        minLatitude: "minLatitude" in data ? data.minLatitude : null,
+        maxLatitude: "maxLatitude" in data ? data.maxLatitude : null,
+        minLongitude: "minLongitude" in data ? data.minLongitude : null,
+        maxLongitude: "maxLongitude" in data ? data.maxLongitude : null,
     }
 }
 
