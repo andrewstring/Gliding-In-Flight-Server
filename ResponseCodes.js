@@ -35,6 +35,8 @@ const ThermalResponse = {
     ErrorUpdatingThermal: "ErrorUpdatingThermal",
     ErrorDeletingThermal: "ErrorDeletingThermal",
     ThermalDoesNotExist: "ThermalDoesNotExist",
+    NoThermalsFound: "NoThermalsFound",
+    ThermalsFound: "ThermalsFound",
     ThermalExists: "ThermalExists",
     ThermalCreated: "ThermalCreated",
     ThermalUpdated: "ThermalUpdated",

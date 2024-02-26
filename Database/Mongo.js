@@ -3,6 +3,7 @@ const { generateGlider, generateFlight, generateThermal } = require("./ModelObje
 const { testFlight, testGlider } = require("./TestData.js")
 const { mongoose } = require("mongoose")
 const { GliderResponse, FlightResponse, ThermalResponse } = require("../ResponseCodes")
+const { mileRadius } = require("../Config")
 
 
 const getGlider = async (gliderName) => {
@@ -160,7 +161,36 @@ const getThermal = async (thermalId) => {
     } catch(e) {
         console.error(e)
         return {message: ThermalResponse.ErrorGettingThermal, data: null}
+    }
+}
 
+const getThermalRadius = async (latitude, longitude) => {
+    try {
+        if (mongoose.connection.readyState != 1) {
+            console.error("Mongodb not connected")
+            return {message: GeneralResponse.MongoDBIssue, data: null}
+        }
+        // Miles to decimal degrees conversion
+        const degToMile = 69.2
+        const radius = (1/69.2) * mileRadius
+        const lowLatBoundary = parseFloat(latitude) - radius
+        const upLatBoundary = parseFloat(latitude) + radius
+        const lowLongBoundary = parseFloat(longitude) - radius
+        const upLongBoundary = parseFloat(longitude) + radius
+        const result = await Thermal.find({
+            "location.latitude": {$gte: lowLatBoundary, $lte: upLatBoundary},
+            "location.longitude": {$gte: lowLongBoundary, $lte: upLongBoundary}
+        })
+        if (!result.count) {
+            return {message: ThermalResponse.NoThermalsFound, data: null}
+        }
+        for (thermal in result) {
+            await thermal.populate("glider")
+        }
+        return {message: ThermalResponse.ThermalsFound, data: result}
+    } catch(e) {
+        console.error(e)
+        return {message: ThermalResponse.ErrorGettingThermal, data: null}
     }
 }
 
@@ -226,5 +256,5 @@ const initBoth = async () => {
 module.exports = {
     getGlider, addGlider, updateGlider, deleteGlider,
     getFlight, addFlight, updateFlight, deleteFlight,
-    getThermal, addThermal, updateThermal, deleteThermal 
+    getThermal, getThermalRadius, addThermal, updateThermal, deleteThermal 
 }
