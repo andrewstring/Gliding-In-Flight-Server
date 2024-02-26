@@ -85,6 +85,7 @@ const getFlight = async (flightId) => {
         if (!result) {
             return {message: FlightResponse.FlightDoesNotExist, data: flightId}
         }
+        await result.populate("glider")
         return {message: FlightResponse.FlightExists, data: result}
     } catch(e) {
         console.error(e)
@@ -154,6 +155,7 @@ const getThermal = async (thermalId) => {
         if (!result) {
             return {message: ThermalResponse.ThermalDoesNotExist, data: thermalId}
         }
+        await result.populate("glider")
         return {message: ThermalResponse.ThermalExists, data: result}
     } catch(e) {
         console.error(e)

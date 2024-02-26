@@ -119,7 +119,7 @@ const flightSchema = new mongoose.Schema({
         default: null,
         required: false
     }],
-    gliderId: {
+    glider: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Glider",
         required: true
@@ -187,7 +187,7 @@ const thermalSchema = new mongoose.Schema({
         type: locationSchema,
         required: true
     },
-    gliderId: {
+    glider: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Glider",
         required: true

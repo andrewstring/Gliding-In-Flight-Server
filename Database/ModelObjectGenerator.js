@@ -46,7 +46,7 @@ const generateFlight = (data) => {
         locations: data.locations.map((location) => generateLocation(location)),
         absoluteBarometricAltitudes: data.absoluteBarometricAltitudes.map((absoluteAltitude) => generateAbsoluteBarometricAltitude(absoluteAltitude)),
         relativeBarometricAltitudes: data.relativeBarometricAltitudes.map((relativeAltitude) => generateRelativeBarometricAltitude(relativeAltitude)),
-        gliderId: new mongoose.Types.ObjectId(data.gliderId),
+        glider: new mongoose.Types.ObjectId(data.glider),
         dateOfFlight: data.dateOfFlight,
         totalTime: data.totalTime,
         distanceTraveled: data.distanceTraveled,
@@ -65,7 +65,7 @@ const generateThermal = (data) => {
     return {
         id: data.id,
         location: generateLocation(data.location),
-        gliderId: new mongoose.Types.ObjectId(data.gliderId),
+        glider: new mongoose.Types.ObjectId(data.glider),
         detectedOn: data.detectedOn
     }
 }
