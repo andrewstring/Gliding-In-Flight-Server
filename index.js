@@ -145,7 +145,10 @@ app.get("/glider-tracking/thermal", async (req, res) => {
 // Get thermal within radius
 app.get("/glider-tracking/thermal/radius", async (req, res) => {
     try {
+        console.log("INNTER")
         const result = await Mongo.getThermalRadius(req.query.lat, req.query.long)
+        console.log("RESULT")
+        console.log(result)
         res.send(result)
     } catch(e) {
         console.error(e)
