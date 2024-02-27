@@ -1,14 +1,19 @@
-const io = require("socket.io")
+const { createServer } = require("http")
+const { Server } = require("socket.io")
 const { socketPort } = require("./Config.js")
 
-
-
 const initSocket = async () => {
-    socketServer = io(socketPort)
-    console.log(`Connected Socket Server on Port ${socketPort}`)
-    socketServer.on("connection", socket => {
-        console.log("\nConnected Client to Socket")
+    const httpServer = createServer()
+    const io = new Server()
+
+    io.attach(httpServer)
+
+    io.on("connection", (socket) => {
+        console.log("\nClient connected\n")
     })
+
+    httpServer.listen(socketPort)
+    console.log(`Socket listening on port ${socketPort}`)
 }
 
 module.exports = { initSocket }

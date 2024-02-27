@@ -189,9 +189,6 @@ const getThermalRadius = async (latitude, longitude) => {
         for await (const thermal of result) {
             await thermal.populate("glider")
         }
-
-        console.log("RESULTY")
-        console.log(result)
         return {message: ThermalResponse.ThermalsFound, data: result}
     } catch(e) {
         console.error(e)

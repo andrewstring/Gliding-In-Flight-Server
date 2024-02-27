@@ -1,7 +1,6 @@
 const { mongoose } = require("mongoose")
 
 const generateLocation = (currentLocation) => {
-    console.log("Generating Location")
     return {
         date: currentLocation.date,
         latitude: currentLocation.latitude,

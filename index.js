@@ -35,7 +35,7 @@ app.get("/glider-tracking/glider", async (req, res) => {
         const result = await Mongo.getGlider(req.query.name)
         res.send(result)
     } catch(e) {
-        console.log(e)
+        console.error(e)
         res.send(e)
     }
 })
@@ -46,6 +46,7 @@ app.post("/glider-tracking/glider", async (req, res) => {
         const result = await Mongo.addGlider(req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -56,6 +57,7 @@ app.put("/glider-tracking/glider", async (req, res) => {
         const result = await Mongo.updateGlider(req.query.name, req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -66,6 +68,7 @@ app.delete("/glider-tracking/glider", async (req, res) => {
         const result = await Mongo.deleteGlider(req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -79,6 +82,7 @@ app.get("/glider-tracking/flight", async (req, res) => {
         const result = await Mongo.getFlight(req.query.id)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -86,10 +90,10 @@ app.get("/glider-tracking/flight", async (req, res) => {
 // Flight object in body of request
 app.post("/glider-tracking/flight", async (req, res) => {
     try {
-        console.log("IN POST")
         const result = await Mongo.addFlight(req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -102,6 +106,7 @@ app.put("/glider-tracking/flight", async (req, res) => {
         const result = await Mongo.updateFlight(req.query.id, req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -114,6 +119,7 @@ app.delete("/glider-tracking/flight", async (req, res) => {
         const result = await Mongo.deleteFlight(req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -134,7 +140,6 @@ app.get("/glider-tracking/thermal", async (req, res) => {
 // Get thermal within radius
 app.get("/glider-tracking/thermal/radius", async (req, res) => {
     try {
-        console.log("INNTER")
         const result = await Mongo.getThermalRadius(req.query.lat, req.query.long)
         res.send(result)
     } catch(e) {
@@ -162,6 +167,7 @@ app.put("/glider-tracking/thermal", async (req, res) => {
         const result = await Mongo.updateThermal(req.query.id, req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })
@@ -174,6 +180,7 @@ app.delete("/glider-tracking/thermal", async (req, res) => {
         const result = await Mongo.deleteThermal(req.body)
         res.send(result)
     } catch(e) {
+        console.error(e)
         res.send(e)
     }
 })

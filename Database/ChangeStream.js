@@ -12,7 +12,7 @@ const runChangeStream = async () => {
 
         changeStream = thermals.watch()
 
-        console.log("Attached to MongoDB ChangeStream")
+        console.log("Attached to mongodb change stream")
 
         for await (const change of changeStream) {
             console.log("CHANGE")
