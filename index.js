@@ -3,10 +3,13 @@ const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 
 const Mongo = require("./Database/Mongo.js")
-const { mongoUri } = require("./Config.js")
+const { serverPort, mongoUri } = require("./Config.js")
+const { runChangeStream } = require("./Database/ChangeStream.js")
+
+const { initSocket } = require("./Socket.js")
 
 const app = express()
-const port = 3000
+
 
 // Middleware
 app.use(bodyParser.json())
@@ -177,16 +180,19 @@ app.delete("/glider-tracking/thermal", async (req, res) => {
 
 
 // Start express server
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
+app.listen(serverPort, () => {
+    console.log(`App listening on port ${serverPort}`)
     console.log("Connecting to database")
+
     try {
         (async () => {
             await mongoose.connect(mongoUri)
             console.log("Connected to mongodb database")
         })()
+        runChangeStream()
+        initSocket()
     } catch(e) {
         console.error(e)
     }
-    
+
 })
