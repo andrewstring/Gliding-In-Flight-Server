@@ -181,12 +181,17 @@ const getThermalRadius = async (latitude, longitude) => {
             "location.latitude": {$gte: lowLatBoundary, $lte: upLatBoundary},
             "location.longitude": {$gte: lowLongBoundary, $lte: upLongBoundary}
         })
-        if (!result.count) {
+        
+        if (result.count < 1) {
             return {message: ThermalResponse.NoThermalsFound, data: null}
         }
-        for (thermal in result) {
+        
+        for await (const thermal of result) {
             await thermal.populate("glider")
         }
+
+        console.log("RESULTY")
+        console.log(result)
         return {message: ThermalResponse.ThermalsFound, data: result}
     } catch(e) {
         console.error(e)
