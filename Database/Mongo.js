@@ -172,7 +172,7 @@ const getThermalRadius = async (latitude, longitude) => {
         }
         // Miles to decimal degrees conversion
         const degToMile = 69.2
-        const radius = (1/69.2) * mileRadius
+        const radius = (1/degToMile) * mileRadius
         const lowLatBoundary = parseFloat(latitude) - radius
         const upLatBoundary = parseFloat(latitude) + radius
         const lowLongBoundary = parseFloat(longitude) - radius
