@@ -4,7 +4,6 @@ const bodyParser = require("body-parser")
 
 const Mongo = require("./Database/Mongo.js")
 const { mongoUri } = require("./Config.js")
-const { GliderResponse } = require("./ResponseCodes.js")
 
 const app = express()
 const port = 3000
@@ -24,21 +23,8 @@ app.get("/datarec", (req, res) => {
 })
 
 
-// Tester Function
-app.post("/glider-tracking/gps", (req, res) => {
-    const output = `Date: ${req.body.dateTime}
-    Latitude: ${req.body.latitude}
-    Longitude: ${req.body.longitude}
-    Altitude ${req.body.altitude}
-    Speed: ${req.body.speed}\n`
-    console.log(output)
-    res.send(output)
-})
-
-
 
 // Main Endpoints
-
 
 // Query parameter for glider.name
 app.get("/glider-tracking/glider", async (req, res) => {
@@ -196,7 +182,7 @@ app.listen(port, () => {
     console.log("Connecting to database")
     try {
         (async () => {
-            mongoose.connect(mongoUri)
+            await mongoose.connect(mongoUri)
             console.log("Connected to mongodb database")
         })()
     } catch(e) {

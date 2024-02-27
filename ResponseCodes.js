@@ -43,4 +43,4 @@ const ThermalResponse = {
     ThermalDeleted: "ThermalDeleted"
 }
 
-module.exports = { GliderResponse, FlightResponse, ThermalResponse }
+module.exports = { GeneralResponse, GliderResponse, FlightResponse, ThermalResponse }

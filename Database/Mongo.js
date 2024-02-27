@@ -2,7 +2,7 @@ const { Glider, Flight, Thermal } = require("./Schema.js")
 const { generateGlider, generateFlight, generateThermal } = require("./ModelObjectGenerator.js")
 const { testFlight, testGlider } = require("./TestData.js")
 const { mongoose } = require("mongoose")
-const { GliderResponse, FlightResponse, ThermalResponse } = require("../ResponseCodes")
+const { GeneralResponse, GliderResponse, FlightResponse, ThermalResponse } = require("../ResponseCodes")
 const { mileRadius } = require("../Config")
 
 
