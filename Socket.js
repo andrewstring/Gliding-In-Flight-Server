@@ -1,8 +1,9 @@
 const { createServer } = require("http")
 const { Server } = require("socket.io")
 const { socketPort } = require("./Config.js")
+const { runChangeStream } = require("./Database/ChangeStream.js")
 
-const initSocket = async () => {
+const initSocket = async (callback) => {
     const httpServer = createServer()
     const io = new Server()
 
@@ -10,6 +11,10 @@ const initSocket = async () => {
 
     io.on("connection", (socket) => {
         console.log("\nClient connected\n")
+        runChangeStream(socket)
+        socket.on("disconnect", () => {
+            console.log("\nClient Disconnect\n")
+        })
     })
 
     httpServer.listen(socketPort)
