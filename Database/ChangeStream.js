@@ -15,9 +15,13 @@ const runChangeStream = async (socket) => {
 
         for await (const change of changeStream) {
             if (socket) {
-                let thermalId = change.fullDocument.id
-                let thermal = generateThermalWithGlider((await getThermal(thermalId)).data)
-                socket.emit("change", JSON.stringify(thermal))
+                console.log("FULL CHANGE")
+                console.log(change)
+                if (change.operationType == "insert") {
+                    let thermalId = change.fullDocument.id
+                    let thermal = generateThermalWithGlider((await getThermal(thermalId)).data)
+                    socket.emit("change", JSON.stringify(thermal))
+                }
             }
         }
         await changeStream.close()
