@@ -151,6 +151,7 @@ app.get("/glider-tracking/thermal/radius", async (req, res) => {
 // Thermal object in body of request
 app.post("/glider-tracking/thermal", async (req, res) => {
     try {
+        console.log("THERMALADDDDINING")
         const result = await Mongo.addThermal(req.body)
         res.send(result)
     } catch(e) {
